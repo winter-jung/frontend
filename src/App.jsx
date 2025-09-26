@@ -21,9 +21,9 @@ export default function App() {
   useEffect(() => {
     async function loadNowPlaying() {
       try {
-        const np = await api.get(`now_playing?language=ko-KR`);
+        const np = await api.get(`on_the_air?language=ko-KR`);
         const po = await api.get(`popular?language=ko-KR`);
-        const up = await api.get(`upcoming?language=ko-KR`);
+        const up = await api.get(`airing_today?language=ko-KR`);
         setNowPlaying(np.data.results.filter(movie => movie.poster_path))
         setPopular(po.data.results.filter(movie => movie.poster_path))
         setUpComing(up.data.results.filter(movie => movie.poster_path))
@@ -36,10 +36,10 @@ export default function App() {
   }, [])
   //console.log(nowPlaying);
 
-  /** 
-   * 
+  /**
+   *
    * Loader
-   * 
+   *
   */
 
   const isLoading = nowPlaying.length === 0 && popular.length === 0 && upComing.length === 0;

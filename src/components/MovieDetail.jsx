@@ -6,9 +6,11 @@ export default function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null)
   useEffect(() => {
+
     async function getMovieDetails() {
       const res = await api.get(`${id}?language=ko-KR`);
       setMovie(res.data)
+      console.log(res.data);
     }
     getMovieDetails()
   }, [id])/* 의존성배열의 값이 바꿀때  실행 */
@@ -31,21 +33,29 @@ export default function MovieDetail() {
             <p className="text-lg mb-4">{movie.overview}</p>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <h3 className="text-yellow-500">Release Date</h3>
-                <p>{movie.release_date}</p>
+                <h3 className="text-yellow-500">Genres</h3>
+                <p>{movie.genres.map((el) => (
+                  <span key={el.id}>{el.name}</span>
+                ))}</p>
               </div>
               <div>
                 <h3 className="text-yellow-500">Rating</h3>
                 <p>{movie.vote_average}</p>
               </div>
               <div>
-                <h3 className="text-yellow-500">Runtime</h3>
-                <p>{movie.runtime}분</p>
+                <h3 className="text-yellow-500">Seasons</h3>
+                <p>  {movie.seasons.map((el) => (
+                  <span key={el.id}>
+                    {el.name} ({el.air_date}, {el.episode_count}부작)
+                  </span>
+                ))}</p>
               </div>
               <div>
                 <h3 className="text-yellow-500">Status</h3>
                 <p>{movie.status}</p>
               </div>
+
+
             </div>
           </div>
         </div>

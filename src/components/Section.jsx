@@ -1,15 +1,34 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 import Card from "./Card";
 export default function Section({ title, items }) {
   return (
     <section className="bg-black py-10 px-4">
       <div className="container mx-auto">
         <h2 className="text-[32px] font-bold mb-6">{title}</h2>
-        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-6">
-          {items.map((m) => (           
-            <Card key={m.id} movie={m} />
+
+
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={24}
+          slidesPerView={6}
+          navigation
+          pagination={{ clickable: true }}
+        >
+
+          {items.map((m) => (
+            <SwiperSlide key={m.id}>
+              <Card movie={m} />
+            </SwiperSlide>
           ))}
-        </div>
+
+        </Swiper>
       </div>
     </section>
   )
 }
+
