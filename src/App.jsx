@@ -10,8 +10,6 @@ import MovieDetail from "./components/MovieDetail";
 import Chatbot from "./components/Chatbot";
 
 
-
-
 export default function App() {
   const [nowPlaying, setNowPlaying] = useState([]);
   const [popular, setPopular] = useState([]);
@@ -59,12 +57,19 @@ export default function App() {
           <Route path="/" element={
             <>
               <VideoHero />
-              <Section title="현재 상영작" items={nowPlaying} m_v={2} p_v={5}/>
-              <Section title="인기 상영작" items={popular} m_v={3} p_v={6}/>
-              <Section title="상영 예정작" items={upComing} m_v={3} p_v={6}/>
+              <Section title="오늘의 몰밤 TOP 10" items={nowPlaying} m_v={2} p_v={5}/>
+              <Section title="지금 방영 중인 콘텐츠" items={popular} m_v={3} p_v={6}/>
+              <Section title="오늘 밤 몰아보기 추천" items={upComing} m_v={3} p_v={6}/>
+              <Section title="추천 인기 드라마" items={upComing} m_v={3} p_v={6}/>
+              <Section title="급상승 영화" items={upComing} m_v={3} p_v={6}/>
+              <Section title="인기 애니 시리즈" items={upComing} m_v={3} p_v={6}/>
+              <Section title="긴장감 넘치는 한국 시리즈" items={upComing} m_v={3} p_v={6}/>
+              <Section title="가을이면 생각나는 로맨스 영화" items={upComing} m_v={3} p_v={6}/>
+              <Section title="흥미진진한 해외 가족 코미디 영화" items={upComing} m_v={3} p_v={6}/>
+              <Section title="인기 예능" items={upComing} m_v={3} p_v={6}/>
             </>
           } />
-          <Route path='/movie/:id' element={<MovieDetail />} />
+          <Route path='/movie/:id' element={<MovieDetail/>} />
         </Routes>
       </main>
       <Chatbot />
@@ -74,14 +79,13 @@ export default function App() {
 
 function Header() {
   return (
-    <header className="fixed top-0 left-0 w-full py-4 px-2 bg-black/90 z-50">
-      <div className="container mx-auto">
-        <Link to="/">
-          <h1 className="text-3xl text-yellow-300 font-bold">
-            <FontAwesomeIcon icon={faHouse} />GOFLIX</h1>
-        </Link>
-      </div>
-    </header>
+    <header className="fixed top-0 left-0 w-full py-12 px-2 bg-black/90 z-50">
+    <div className="container mx-auto">
+      <Link to="/">
+        <h1 className='w-[270px]'><img src="./morebomb_logo.svg" alt="logo" /></h1>
+      </Link>
+    </div>
+  </header>
   )
 }
 function VideoHero() {
@@ -93,10 +97,10 @@ function VideoHero() {
       <div className="absolute inset-0 bg-black/50"></div>
       <div className="relative z-10 flex-col flex items-center justify-center h-full">
         <h2 className="text-5xl md:text-7xl font-bold mb-6 text-yellow-300">
-          GOFLEX
+         MORE BOMB
         </h2>
         <p className="text-xl md:text-2xl mb-8 max-w-2xl">
-          최신 영화와 인기 작품을 만나보세요.
+          오늘 밤은 몰밤에서, 밤새워도 아깝지 않은 순간
         </p>
         <button className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300">지금 시작하기</button>
       </div>
