@@ -5,7 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import Card from "./Card";
-export default function Section({ title, items }) {
+export default function Section({ title, items, p_v, m_v }) {
   return (
     <section className="bg-black py-10 px-4">
       <div className="container mx-auto">
@@ -15,9 +15,15 @@ export default function Section({ title, items }) {
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={24}
-          slidesPerView={6}
           navigation
           pagination={{ clickable: true }}
+          breakpoints={{
+            960: { slidesPerView: m_v },
+          1024: { slidesPerView: p_v }
+
+
+          }}
+
         >
 
           {items.map((m) => (
