@@ -3,7 +3,6 @@ import Navi from "./Navi";
 function RootLayout() {
     return (
         <>
-            <div>RootLayout</div>
             <Navi />
             <Outlet />
         </>

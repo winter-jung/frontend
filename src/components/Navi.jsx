@@ -1,16 +1,15 @@
 import { Link, useNavigate } from "react-router";
 
 function Navi() {
-    // const back = useNavigate();
+    const back = useNavigate(-1);
     return (
-        <div className="flex gap-8 p-4 text-white text-[20px] font-bold justify-center">
-            <Link to='/'>홈</Link>
-            <Link to='/drama'>드라마</Link>
-            <Link to='/movie'>영화</Link>
-            <Link to='/ani'>애니</Link>
-            <Link to='/comedy'>예능</Link>
-            <Link to='/morebomb'>몰밤각</Link>
-            <Link to='/now'>요즘 대세 콘텐츠</Link>
+        <div className="flex gap-8 bg-pink-100 p-4 text-[20px]">
+            <Link to="/">
+                <h1 className='w-[270px]'><img src="./morebomb_logo.svg" alt="logo" /></h1>
+            </Link>
+            <Link to={`/genres/18`}>드라마</Link>
+            <Link to={`/genres/10759`}>액션 & 어드벤처</Link>
+            <Link to={`/genres/16`}>애니메이션</Link>
         </div>
     )
 }
