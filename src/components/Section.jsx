@@ -20,10 +20,7 @@ export default function Section({ title, items, p_v, m_v }) {
           breakpoints={{
             960: { slidesPerView: m_v },
           1024: { slidesPerView: p_v }
-
-
           }}
-
         >
 
           {items.map((m) => (
