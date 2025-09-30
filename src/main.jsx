@@ -4,44 +4,49 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 
 import App from './App.jsx'
 import RootLayout from './components/RootLayout.jsx'
-import Error from './components/Error.jsx'
+import Drama from './components/Drama.jsx'
+import Movie from './components/Movie.jsx'
+import Ani from './components/Ani.jsx'
+import Comedy from './components/Comedy.jsx'
+import Morebomb from './components/Morebomb.jsx'
+import Now from './components/Now.jsx'
 import './index.css'
 
 
-const router = createBrowserRouter(
+const router = createBrowserRouter([
   {
     path: '/',
-    element: <RootLayout />,   
+    element: <App />,
     errorElement: <Error />,
     children: [
       {
-        path: 'drama',
+        path: '/drama',
         element: <Drama />
       },
       {
-        path: 'movie',
+        path: '/movie',
         element: <Movie />
       },
       {
-        path: 'ani/:id',   /* : -> 변수의 역할 */
+        path: '/ani/:id',   /* : -> 변수의 역할 */
         element: <Ani />
       },
       {
-        path: 'comedy',
+        path: '/comedy',
         element: <Comedy />
       },
       {
-        path: 'morebomb',
+        path: '/morebomb',
         element: <Morebomb />
       },
       {
-        path: 'now',
+        path: '/now',
         element: <Now />
       },
     ]
   },
 
-)
+])
 
 
 
