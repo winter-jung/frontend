@@ -4,6 +4,7 @@ import { Route, Routes, Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from "react";
+import Navi from "./components/Navi"
 
 import Section from "./components/Section";
 import MovieDetail from "./components/MovieDetail";
@@ -57,19 +58,19 @@ export default function App() {
           <Route path="/" element={
             <>
               <VideoHero />
-              <Section title="오늘의 몰밤 TOP 10" items={nowPlaying} m_v={2} p_v={5}/>
-              <Section title="지금 방영 중인 콘텐츠" items={popular} m_v={3} p_v={6}/>
-              <Section title="오늘 밤 몰아보기 추천" items={upComing} m_v={3} p_v={6}/>
-              <Section title="추천 인기 드라마" items={upComing} m_v={3} p_v={6}/>
-              <Section title="급상승 영화" items={upComing} m_v={3} p_v={6}/>
-              <Section title="인기 애니 시리즈" items={upComing} m_v={3} p_v={6}/>
-              <Section title="긴장감 넘치는 한국 시리즈" items={upComing} m_v={3} p_v={6}/>
-              <Section title="가을이면 생각나는 로맨스 영화" items={upComing} m_v={3} p_v={6}/>
-              <Section title="흥미진진한 해외 가족 코미디 영화" items={upComing} m_v={3} p_v={6}/>
-              <Section title="인기 예능" items={upComing} m_v={3} p_v={6}/>
+              <Section title="오늘의 몰밤 TOP 10" items={nowPlaying} m_v={2} p_v={5} />
+              <Section title="지금 방영 중인 콘텐츠" items={popular} m_v={3} p_v={6} />
+              <Section title="오늘 밤 몰아보기 추천" items={upComing} m_v={3} p_v={6} />
+              <Section title="추천 인기 드라마" items={upComing} m_v={3} p_v={6} />
+              <Section title="급상승 영화" items={upComing} m_v={3} p_v={6} />
+              <Section title="인기 애니 시리즈" items={upComing} m_v={3} p_v={6} />
+              <Section title="긴장감 넘치는 한국 시리즈" items={upComing} m_v={3} p_v={6} />
+              <Section title="가을이면 생각나는 로맨스 영화" items={upComing} m_v={3} p_v={6} />
+              <Section title="흥미진진한 해외 가족 코미디 영화" items={upComing} m_v={3} p_v={6} />
+              <Section title="인기 예능" items={upComing} m_v={3} p_v={6} />
             </>
           } />
-          <Route path='/movie/:id' element={<MovieDetail/>} />
+          <Route path='/movie/:id' element={<MovieDetail />} />
         </Routes>
       </main>
       <Chatbot />
@@ -79,15 +80,16 @@ export default function App() {
 
 function Header() {
   return (
-    <header className="fixed top-0 left-0 w-full py-12 px-2 bg-black/90 z-50 backdrop-blur-lg"  style={{
+    <header className="fixed top-0 left-0 w-full py-12 px-2 bg-black/90 z-50 backdrop-blur-lg" style={{
       background: 'linear-gradient(to bottom, #0d0727 0%, rgba(13,7,39,0.6) 87.5%, rgba(13,7,39,0.4) 100%)',
     }}>
-    <div className="container mx-auto">
-      <Link to="/">
-        <h1 className='w-[270px]'><img src="./morebomb_logo.svg" alt="logo" /></h1>
-      </Link>
-    </div>
-  </header>
+      <div className="container mx-auto flex items-center gap-30">
+        <Link to="/">
+          <h1 className='w-[270px]'><img src="./morebomb_logo.svg" alt="logo" /></h1>
+        </Link>
+        <Navi />
+      </div>
+    </header>
   )
 }
 function VideoHero() {

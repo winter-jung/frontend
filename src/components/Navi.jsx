@@ -1,10 +1,9 @@
 import { Link, useNavigate } from "react-router";
 
 function Navi() {
-    const back = useNavigate();
-
+    // const back = useNavigate();
     return (
-        <div className="flex gap-8 bg-pink-100 p-4 text-[20px]">
+        <div className="flex gap-8 p-4 text-white text-[20px] font-bold justify-center">
             <Link to='/'>홈</Link>
             <Link to='/drama'>드라마</Link>
             <Link to='/movie'>영화</Link>
