@@ -79,7 +79,9 @@ export default function App() {
 
 function Header() {
   return (
-    <header className="fixed top-0 left-0 w-full py-12 px-2 bg-black/90 z-50">
+    <header className="fixed top-0 left-0 w-full py-12 px-2 bg-black/90 z-50 backdrop-blur-lg"  style={{
+      background: 'linear-gradient(to bottom, #0d0727 0%, rgba(13,7,39,0.6) 87.5%, rgba(13,7,39,0.4) 100%)',
+    }}>
     <div className="container mx-auto">
       <Link to="/">
         <h1 className='w-[270px]'><img src="./morebomb_logo.svg" alt="logo" /></h1>
