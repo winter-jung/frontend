@@ -94,15 +94,9 @@ function VideoHero() {
       <video autoPlay muted loop playsInline className='absolute top-0 left-0 w-full h-full object-cover'>
         <source src='video.mp4' />
       </video>
-      <div className="absolute inset-0 bg-black/50"></div>
-      <div className="relative z-10 flex-col flex items-center justify-center h-full">
-        <h2 className="text-5xl md:text-7xl font-bold mb-6 text-yellow-300">
-         MORE BOMB
-        </h2>
-        <p className="text-xl md:text-2xl mb-8 max-w-2xl">
-          오늘 밤은 몰밤에서, 밤새워도 아깝지 않은 순간
-        </p>
-        <button className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300">지금 시작하기</button>
+      <div></div>
+      <div className="relative z-10 flex-col flex items-center justify-center h-full mt-65">
+        <button className="bg-[#dcf312] hover:bg-yellow-600 text-black px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300">지금 시작하기</button>
       </div>
     </section>
   )
