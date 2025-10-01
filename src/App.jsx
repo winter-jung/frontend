@@ -13,6 +13,9 @@ export default function App() {
   const [trend, setTrend] = useState([]);
   const [airTV, setAirTV] = useState([]);
   const [popAni, setPopAni] = useState([]);
+  const [popKD, setPopKD] = useState([]);
+  const [eDrama, setEDrama] = useState([]);
+  const [reality, setReality] = useState([]);
 
 
 
@@ -25,14 +28,50 @@ export default function App() {
         //const pp = await api2.get(`https://api.themoviedb.org/3/discover/tv?with_genres=10764&api_key=045de676aa8d4291cf0170a6ef76e978`)
         const tr = await api.get(`https://api.themoviedb.org/3/trending/tv/day?language=ko-KR`)
         const at = await api.get(`top_rated?language=ko-KR`)
-        // const pa = await apiCate.get(`tv?with_genres=16&`)
+        const pa = await api2.get('', {
+          params: {
+            with_origin_country: 'JP',
+            with_genres: 16,
+            language: 'ko-KR'
+          }
+        });
+        const pk = await api2.get('/discover/tv', {
+          params: {
+            with_origin_country: 'KR',
+            with_genres: '18',
+            sort_by: 'popularity.desc',
+          },
+        });
+        const ed = await api2.get('https://api.themoviedb.org/3/discover/tv', {
+          params: {
+
+            with_origin_country: 'US', // 또는 다른 국가 코드
+            with_genres: '10751',
+            sort_by: 'popularity.desc',
+            language: 'ko-KR',
+          },
+        });
+        const rl = await api2.get('https://api.themoviedb.org/3/discover/tv', {
+          params: {
+
+            with_origin_country: 'KR', // 또는 다른 국가 코드
+            with_genres: '10764',
+            sort_by: 'popularity.desc',
+            language: 'ko-KR',
+          },
+        });
+
+
 
         setPopular(po.data.results.filter(tv => tv.poster_path))
         setNowPlaying(np.data.results.filter(tv => tv.poster_path))
         setUpComing(up.data.results.filter(tv => tv.poster_path))
         setTrend(tr.data.results.filter(tv => tv.poster_path))
         setAirTV(at.data.results.filter(tv => tv.poster_path))
-        setPopAni(at.data.results.filter(tv => tv.poster_path))
+        setPopAni(pa.data.results.filter(tv => tv.poster_path))
+        setPopKD(pk.data.results.filter(tv => tv.poster_path))
+        setEDrama(ed.data.results.filter(tv => tv.poster_path))
+        setReality(rl.data.results.filter(tv => tv.poster_path))
       }
       catch (err) {
         console.error('로딩실패', err)
@@ -61,6 +100,9 @@ export default function App() {
         <Section title="추천 인기 시리즈물" items={trend} m_v={3} p_v={6} />
         <Section title="급상승 콘텐츠" items={airTV} m_v={3} p_v={6} />
         <Section title="인기 애니 시리즈" items={popAni} m_v={3} p_v={6} />
+        <Section title="추천 인기 K드라마" items={popKD} m_v={3} p_v={6} />
+        <Section title="해외 코미디 가족 드라마" items={eDrama} m_v={3} p_v={6} />
+        <Section title="인기 예능" items={reality} m_v={3} p_v={6} />
 
       </main>
       <Chatbot />
@@ -72,7 +114,7 @@ export default function App() {
 function VideoHero() {
   return (
     <section className="relative h-screen overflow-hidden">
-      <video autoPlay muted loop playsInline className='absolute top-0 left-0 w-full h-full object-cover'>
+      <video autoPlay muted={false} loop playsInline className='absolute top-0 left-0 w-full h-full object-cover'>
         <source src='video.mp4' />
       </video>
       <div></div>
