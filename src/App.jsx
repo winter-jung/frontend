@@ -10,26 +10,29 @@ export default function App() {
   const [popular, setPopular] = useState([]);
   const [nowPlaying, setNowPlaying] = useState([]);
   const [upComing, setUpComing] = useState([]);
-  const [popTV, setPopTV] = useState([]);
+  const [trend, setTrend] = useState([]);
   const [airTV, setAirTV] = useState([]);
+  const [popAni, setPopAni] = useState([]);
 
 
 
   useEffect(() => {
     async function loadNowPlaying() {
       try {
-        const np = await api.get(`on_the_air?language=ko-KR`);
         const po = await api.get(`popular?language=ko-KR`);
+        const np = await api.get(`on_the_air?language=ko-KR`);
         const up = await api.get(`airing_today?language=ko-KR`);
         //const pp = await api2.get(`https://api.themoviedb.org/3/discover/tv?with_genres=10764&api_key=045de676aa8d4291cf0170a6ef76e978`)
-        const pp = await api2.get(`with_genres=10764`)
-        const at = await api2.get(`with_genres=35`)
+        const tr = await api.get(`https://api.themoviedb.org/3/trending/tv/day?language=ko-KR`)
+        const at = await api.get(`top_rated?language=ko-KR`)
+        // const pa = await apiCate.get(`tv?with_genres=16&`)
 
-        setNowPlaying(np.data.results.filter(tv => tv.poster_path))
         setPopular(po.data.results.filter(tv => tv.poster_path))
+        setNowPlaying(np.data.results.filter(tv => tv.poster_path))
         setUpComing(up.data.results.filter(tv => tv.poster_path))
-        setPopTV(pp.data.results.filter(tv => tv.poster_path))
+        setTrend(tr.data.results.filter(tv => tv.poster_path))
         setAirTV(at.data.results.filter(tv => tv.poster_path))
+        setPopAni(at.data.results.filter(tv => tv.poster_path))
       }
       catch (err) {
         console.error('로딩실패', err)
@@ -52,11 +55,12 @@ export default function App() {
     <>
       <main className="bg-black text-white">
         <VideoHero />
-        <Section title="오늘의 몰밤 TOP 10" items={nowPlaying} m_v={2} p_v={5} />
-        <Section title="지금 방영 중인 콘텐츠" items={popular} m_v={3} p_v={6} />
+        <Section title="오늘의 몰밤 TOP 10" items={popular} m_v={2} p_v={5} />
+        <Section title="지금 방영 중인 콘텐츠" items={nowPlaying} m_v={3} p_v={6} />
         <Section title="오늘 밤 몰아보기 추천" items={upComing} m_v={3} p_v={6} />
-        <Section title="1111추천 인기 드라마" items={popTV} m_v={3} p_v={6} />
-        <Section title="스릴러" items={airTV} m_v={3} p_v={6} />
+        <Section title="추천 인기 시리즈물" items={trend} m_v={3} p_v={6} />
+        <Section title="급상승 콘텐츠" items={airTV} m_v={3} p_v={6} />
+        <Section title="인기 애니 시리즈" items={popAni} m_v={3} p_v={6} />
 
       </main>
       <Chatbot />
