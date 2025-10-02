@@ -9,6 +9,7 @@ import GenrePage from './components/GenrePage.jsx'
 import './index.css'
 import MovieDetail from './components/MovieDetail.jsx'
 import Search from "./components/Search.jsx"
+import Moregak from './components/Moregak.jsx'
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,11 @@ const router = createBrowserRouter([
         {
           path: 'search',
           element: <Search />,
-        }
+        },
+          {
+        path: '/moregak',
+        element: < Moregak />,
+      },
 
     ]
   },

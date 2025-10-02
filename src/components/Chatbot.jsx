@@ -6,7 +6,7 @@ import { faHeadset } from '@fortawesome/free-solid-svg-icons';
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, text: '안녕하세요! 네이버 클로바 챗봇입니다. 무엇을 도와드릴까요?', sender: 'bot' }
+    { id: 1, text: '안녕하세요! MORE BOMB챗봇입니다. 무엇을 도와드릴까요?', sender: 'bot' }
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
