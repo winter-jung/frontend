@@ -18,12 +18,14 @@ function Navi() {
                         <Link to={`/genres/18`}>예능</Link>
                         <Link to="/moregak">몰밤각</Link>
                         <Link to={`/genres/16`}>요즘 대세 콘텐츠</Link>
+
                     </div>
                 </div>
                 <div className='flex gap-3'>
                     <Link to="/search"><img src="./search.svg" alt="search" /></Link>
                     <Link><img src="./noti.svg" alt="noti" /></Link>
-                    <Link><img src="./people.svg" alt="people" /></Link>
+                    <Link to="/genres/p"><img src="./people.svg" alt="people" /></Link>
+
                 </div>
             </div>
 
