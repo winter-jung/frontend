@@ -50,9 +50,11 @@ function GenrePage() {
     }
 
     return (
-        <main className="pt-24 bg-black text-white min-h-screen">
+        <main className="pt-35 bg-black text-white min-h-screen">
             <div className="container mx-auto px-4">
-                <h1 className="text-3xl font-bold mb-8">{genreName} 몰아보기</h1>
+                {/* 이미지 배너넣는중 세정---*/}
+                <img className="w-screen h-[600px] border border-radius" src="../banner.jpg" alt="배너" /> 
+                {/* <h1 className="text-3xl font-bold mb-8">{genreName} 몰아보기</h1> */}
                 {movies.length > 0 ? (
                     <Section title={`${genreName} 추천 콘텐츠`} items={movies} m_v={3} p_v={6} />
                 ) : (

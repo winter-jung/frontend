@@ -65,20 +65,21 @@ function Moregak() {
 
 
 function VideoHero() {
-    const btn = `bg-white hover:bg-black hover:text-white text-black px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300`
+    const btnp = `bg-white hover:bg-black text-black hover:text-white px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300 cursor-pointer`
+    const btni = `hover:bg-black bg-[#E0E0E0] text-black hover:text-white px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300 cursor-pointer`
 
     return (
         <div className="relative">
             <div className="absolute z-10 top-[250px] w-[500px] h-auto left-[150px] ml-6">
-                <div className="w-[500px] ">
+                <div className="w-[500px]">
                     <h2 className="text-white text-6xl font-bold mb-10">Title</h2>
                     <span>정보1 Lorem ipsum, dolor</span>
                     <br />
                     <span>정보2 Lorem ispansum dolor sit amet consectetur adipisicing elit. Est nulla sit alias consequatur debitis. Ipsa libero sequi quisquam optio, debitis dolor omnis beatae nisi fuga hic enim ab dolorum aliquam.</span>
                 </div>
                 <div className="flex gap-2 mt-20">
-                    <button className={btn}>재생</button>
-                    <button className={btn}>상세정보
+                    <button className={btnp}>재생</button>
+                    <button className={btni}>상세정보
                     </button>
                 </div>
             </div>
