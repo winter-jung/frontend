@@ -1,16 +1,10 @@
-import axios from 'axios';
 import api from "./api/axios";
-import { Route, Routes, Link } from "react-router";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 import Section from "./components/Section";
-import MovieDetail from "./components/MovieDetail";
 import Chatbot from "./components/Chatbot";
-import Search from "./components/Search";
 
 export default function App() {
   const [nowPlaying, setNowPlaying] = useState([]);
