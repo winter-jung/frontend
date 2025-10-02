@@ -15,17 +15,7 @@ const apiCate = axios.create({
     sort_by: 'popularity.desc'
   }
 })
-// TMDB 성인등급 API
-const api2 = axios.create({
-  baseURL: 'https://api.themoviedb.org/3/discover/tv?',
-  params: {
-    api_key: import.meta.env.VITE_TMDB_API_KEY,
-    language: 'ko-KR',
-   // sort_by: 'popularity.desc',
-   // include_adult: true,
-   // certification_lte: 19,
-  }
-})
+
 
 //챗봇 API용 (Flask 백엔드)
 const chatApi = axios.create({
@@ -35,5 +25,5 @@ const chatApi = axios.create({
     'Content-Type': 'application/json'
   }
 })
-export { chatApi,apiCate,api2 };
+export { chatApi,apiCate };
 export default api;
