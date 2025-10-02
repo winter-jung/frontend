@@ -2,9 +2,11 @@ import api from "./api/axios";
 import { api2 } from "./api/axios";
 import { useEffect, useState } from "react";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 import Section from "./components/Section";
 import Chatbot from "./components/Chatbot";
-
+import Search from "./components/Search";
 
 export default function App() {
   const [popular, setPopular] = useState([]);
@@ -112,14 +114,28 @@ export default function App() {
 
 
 function VideoHero() {
+  const [muted, setMuted] = useState(true);
+  const videoRef = useState(null);
+
+  const handleToggleMute = () => {
+    setMuted(prev => !prev);
+    if (videoRef[0]) {
+      videoRef[0].muted = !muted;
+    }
+  };
   return (
     <section className="relative h-screen overflow-hidden">
-      <video autoPlay muted={false} loop playsInline className='absolute top-0 left-0 w-full h-full object-cover'>
-        <source src='video.mp4' />
+      <video autoPlay  muted={muted} loop playsInline className='absolute top-0 left-0 w-full h-full object-cover'>
+        <source src='/public/video.mp4' />
       </video>
-      <div></div>
       <div className="relative z-10 flex-col flex items-center justify-center h-full mt-65">
-        <button className="bg-[#dcf312] hover:bg-yellow-600 text-black px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300">지금 시작하기</button>
+        <button
+          onClick={handleToggleMute}
+          className="bg-black/60 rounded-full p-4 hover:bg-black/80 transition"
+          aria-label={muted ? '음소거 해제' : '음소거'}
+        >
+          <FontAwesomeIcon icon={faVolumeHigh} beat={!muted}/>
+        </button>
       </div>
     </section>
   )

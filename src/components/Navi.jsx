@@ -21,7 +21,7 @@ function Navi() {
                     </div>
                 </div>
                 <div className='flex gap-3'>
-                    <Link><img src="./search.svg" alt="search" /></Link>
+                    <Link to="/search"><img src="./search.svg" alt="search" /></Link>
                     <Link><img src="./noti.svg" alt="noti" /></Link>
                     <Link><img src="./people.svg" alt="people" /></Link>
                 </div>

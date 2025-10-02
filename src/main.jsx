@@ -8,7 +8,7 @@ import Error from './components/Error.jsx'
 import GenrePage from './components/GenrePage.jsx'
 import './index.css'
 import MovieDetail from './components/MovieDetail.jsx'
-
+import Search from "./components/Search.jsx"
 
 const router = createBrowserRouter([
   {
@@ -28,6 +28,11 @@ const router = createBrowserRouter([
         path: 'tv/:id',
         element: <MovieDetail />,
       }
+        ,
+        {
+          path: 'search',
+          element: <Search />,
+        }
 
     ]
   },
