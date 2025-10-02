@@ -6,7 +6,7 @@ import { faHeadset } from '@fortawesome/free-solid-svg-icons';
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, text: '안녕하세요! 챗봇입니다. 무엇을 도와드릴까요?', sender: 'bot' }
+    { id: 1, text: '안녕하세요! 네이버 클로바 챗봇입니다. 무엇을 도와드릴까요?', sender: 'bot' }
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +52,7 @@ export default function ChatBot() {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-16 h-16 bg-yellow-500 text-black rounded-full shadow-lg z-50 flex items-center justify-center hover:bg-yellow-600 transition-colors duration-300"
+        className="fixed bottom-6 right-6 w-16 h-16 bg-[#dcf312] text-black rounded-full shadow-lg z-50 flex items-center justify-center hover:bg-[#9bab0b] transition-colors duration-500"
       >
         <FontAwesomeIcon icon={faHeadset} size="lg" />
       </button>
@@ -61,7 +61,7 @@ export default function ChatBot() {
         <div className="fixed bottom-24 right-6 w-80 h-96 bg-white rounded-lg shadow-xl z-50 flex flex-col">
           <div className="bg-yellow-500 text-black p-4 rounded-t-lg">
             <div className="flex justify-between items-center">
-              <h3 className="font-bold">GOFLIX 챗봇</h3>
+              <h3 className="font-bold">물봇</h3>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-black hover:text-gray-600"

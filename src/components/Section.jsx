@@ -19,7 +19,7 @@ export default function Section({ title, items, p_v, m_v }) {
           pagination={{ clickable: true }}
           breakpoints={{
             960: { slidesPerView: m_v },
-          1024: { slidesPerView: p_v }
+            1024: { slidesPerView: p_v }
           }}
         >
 
@@ -34,4 +34,3 @@ export default function Section({ title, items, p_v, m_v }) {
     </section>
   )
 }
-
