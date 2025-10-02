@@ -3,7 +3,7 @@ import Navi from "./Navi";
 function RootLayout() {
     return (
         <>
-            <Navi  />
+            <Navi />
             <Outlet />
         </>
     )

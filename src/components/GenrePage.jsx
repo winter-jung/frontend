@@ -12,7 +12,7 @@ function GenrePage() {
     // Genre ID to name mapping
     const genreNames = {
         10759: "액션 & 어드벤처",
-        16: "애니메이션",
+        16: "애니메이션", 
         18: "드라마"
     };
 
@@ -52,7 +52,7 @@ function GenrePage() {
     return (
         <main className="pt-24 bg-black text-white min-h-screen">
             <div className="container mx-auto px-4">
-                <h1 className="text-3xl font-bold mb-8">{genreName} 몰아보기</h1>
+                <h1 className="text-3xl font-bold mb-8">{genreName} 콘텐츠</h1>
                 {movies.length > 0 ? (
                     <Section title={`${genreName} 추천 콘텐츠`} items={movies} m_v={3} p_v={6} />
                 ) : (
