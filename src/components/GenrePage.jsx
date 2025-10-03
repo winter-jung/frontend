@@ -3,6 +3,8 @@ import { useParams } from "react-router";
 import axios from "axios";
 import Section from "./Section";
 import Banner from "./Banner"
+import Chatbot from "./Chatbot";
+
 
 function GenrePage() {
     const { genreId } = useParams();
@@ -51,17 +53,20 @@ function GenrePage() {
     }
 
     return (
-        <main className="pt-35 bg-black text-white min-h-screen">
-            <div className="container mx-auto px-4">
-                <Banner />
-                {/* <h1 className="text-3xl font-bold mb-8">{genreName} 몰아보기</h1> */}
-                {movies.length > 0 ? (
-                    <Section title={`${genreName} 추천 콘텐츠`} items={movies} m_v={3} p_v={6} />
-                ) : (
-                    <p className="text-center text-gray-400">해당 장르의 콘텐츠를 찾을 수 없습니다.</p>
-                )}
-            </div>
-        </main>
+        <div>
+            <main className="pt-35 bg-black text-white min-h-screen">
+                <div className="container mx-auto px-4">
+                    <Banner />
+                    {/* <h1 className="text-3xl font-bold mb-8">{genreName} 몰아보기</h1> */}
+                    {movies.length > 0 ? (
+                        <Section title={`${genreName} 추천 콘텐츠`} items={movies} m_v={3} p_v={6} />
+                    ) : (
+                        <p className="text-center text-gray-400">해당 장르의 콘텐츠를 찾을 수 없습니다.</p>
+                    )}
+                </div>
+            </main>
+            <Chatbot />
+        </div>
     );
 }
 
