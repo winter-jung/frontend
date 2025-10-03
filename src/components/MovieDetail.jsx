@@ -1,9 +1,14 @@
 import api from "../api/axios";
+import { api2 } from "../api/axios";
+import Section from "../components/Section";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import Section from "./Section"
+import axios from 'axios';
 
-export default function MovieDetail() {
+
+// 플레이화면 링크연결해야함
+
+function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null)
 
@@ -19,7 +24,7 @@ export default function MovieDetail() {
     return <div className="min-h-screen bg-black text-white flex-item-center justify-center">Loading...</div>
   }
   // 버튼 및 텍스트 css
-  const btn = `bg-white hover:bg-[#D4F312] hover:text-black text-black px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300 cursor-pointer hover:scale-115`
+  const btn = `bg-white hover:bg-[#D4F312] hover:text-black text-black px-8 py-4 rounded-lg text-lg font-bold transition duration-300 cursor-pointer hover:scale-110`
   const text = `text-[#D4F312] font-bold text-lg mb-2`
   const text2 = `text-[#5A4FCF] font-bold text-lg mb-2`
 
@@ -28,7 +33,6 @@ export default function MovieDetail() {
     <div className="min-h-screen bg-black text-white p-4 py-[80px]">
       <div className="container mx-auto py-8 mt-10">
         <div className="flex flex-col gap-8 md:flex-row">
-          {/* 이미지왼쪽(지우면안됨) */}
           <img
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt={movie.name}
@@ -64,28 +68,50 @@ export default function MovieDetail() {
               </div>
             </div>
           </div>
-          {/* 이미지오른쪽 (지우면안됨)*/}
         </div>
+        <SimilarContent id={id} type="tv"/>
+        <SimilarContent id={id} type="movie" />
       </div>
-
     </div>
   )
 
 }
+// 비슷한 콘텐츠
+function SimilarContent({ id, type = 'tv' }) {
+  const [similar, setSimilar] = useState([]);
+const title = type === 'tv' ? 'TV 비슷한 콘텐츠' : '영화 비슷한 콘텐츠';
 
-// 10/2 세정 작업중--- 3일에 이어서
-// export function Similar() {
-//   const [similarM, setSimilarM] = useState([]);
-//   useEffect(() => {
-//     async function movieId() {
-//               const po = await api.get(`popular?language=ko-KR`);
+  useEffect(() => {
+    async function loadSimilarContent() {
+      try {
+        const res = await axios.get(`https://api.themoviedb.org/3/${type}/${id}/similar`, {
+          params: {
+            api_key: import.meta.env.VITE_TMDB_API_KEY,
+            language: 'ko-KR',
+          },
+        });
+        setSimilar(res.data.results.filter(item => item.poster_path));
+      } catch (err) {
+        console.error('비슷한 콘텐츠 로딩 실패:', err);
+      }
+    }
 
-//     }
-//     })
+    if (id) loadSimilarContent();
+  }, [id, type]);
 
-//     return (
-//     {/* 비슷한 콘텐츠 추천(영화) */ }
-//     < Section title = "비슷한 영화 콘텐츠 추천" items = { similarMovie } m_v = { 3} p_v = { 6} />
+  if (similar.length === 0) {
+    return (
+      <main className="pt-16 min-h-[426px] bg-black text-white grid place-items-center">
+        <p className="text-2xl"> {type} 비슷한 콘텐츠가 없습니다.</p>
+      </main>
+    );
+  }
+  return (
+    <main className="bg-black text-white">
+      <Section title={title} items={similar} m_v={3} p_v={6} />
+    </main>
+  );
+}
 
-//   )
-// }
+
+export default MovieDetail

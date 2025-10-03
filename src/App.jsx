@@ -124,14 +124,14 @@ function VideoHero() {
     }
   };
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-screen overflow-hidden mb-4">
       <video autoPlay  muted={muted} loop playsInline className='absolute top-0 left-0 w-full h-full object-cover'>
         <source src='video.mp4' />
       </video>
       <div className="relative z-10 flex-col flex items-center justify-center h-full mt-65">
         <button
           onClick={handleToggleMute}
-          className="bg-black/60 rounded-full p-4 hover:bg-black/80 transition"
+          className="bg-black/30 rounded-full p-7 hover:bg-black/80 transition"
           aria-label={muted ? '음소거 해제' : '음소거'}
         >
           <FontAwesomeIcon icon={faVolumeHigh} beat={!muted}/>

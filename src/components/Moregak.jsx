@@ -65,22 +65,20 @@ function Moregak() {
 
 
 function VideoHero() {
-    const btnp = `bg-white hover:bg-black text-black hover:text-white px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300 cursor-pointer`
+    const btnp = `bg-white hover:bg-[#5A4FCF] text-black hover:text-white px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300 cursor-pointer`
     const btni = `hover:bg-black bg-[#E0E0E0] text-black hover:text-white px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300 cursor-pointer`
 
     return (
         <div className="relative">
-            <div className="absolute z-10 top-[250px] w-[500px] h-auto left-[150px] ml-6">
-                <div className="w-[500px]">
-                    <h2 className="text-white text-6xl font-bold mb-10">Title</h2>
-                    <span>정보1 Lorem ipsum, dolor</span>
-                    <br />
-                    <span>정보2 Lorem ispansum dolor sit amet consectetur adipisicing elit. Est nulla sit alias consequatur debitis. Ipsa libero sequi quisquam optio, debitis dolor omnis beatae nisi fuga hic enim ab dolorum aliquam.</span>
+            <div className="text-[#F5F5F5] absolute z-10 top-60 w-full mx-auto max-w-[620px] h-[500px] left-20 ml-6 rounded-[20px] p-10 bg-black/20">
+                <div>
+                    <h2 className="text-6xl font-bold mb-10"><span className="text-[#D4F312]">몰밤</span> 전용관</h2>
+                    <div className="text-3xl mb-2">잠들기엔 너무 아까운 <span className="text-[#5A4FCF] font-bold">오늘 밤</span>,</div>
+                    <div className="text-3xl">몰밤 전용관에서 지금 바로 즐겨보세요.</div>
                 </div>
-                <div className="flex gap-2 mt-20">
-                    <button className={btnp}>재생</button>
-                    <button className={btni}>상세정보
-                    </button>
+                <div className="flex gap-2 mt-25">
+                    <button className={btnp}>시리즈 이동하기</button> {/* 버튼링크 어디로 이동하는걸로 넣을지 */}
+                    <button className={btni}>상세정보</button>  {/* 버튼링크 어디로 이동하는걸로 넣을지 */}
                 </div>
             </div>
 

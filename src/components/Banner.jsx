@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 
 function Banner() {
     return (
-        <section className="flex">
+        <section className="flex mb-4">
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 loop={true}
