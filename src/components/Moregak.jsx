@@ -2,6 +2,7 @@ import api from "../api/axios";
 import { useEffect, useState } from "react";
 import Section from "./Section";
 import Chatbot from "./Chatbot";
+import { Link } from "react-router";
 
 function Moregak() {
     const [popular, setPopular] = useState([]);
@@ -77,8 +78,8 @@ function VideoHero() {
                     <div className="text-3xl">몰밤 전용관에서 지금 바로 즐겨보세요.</div>
                 </div>
                 <div className="flex gap-2 mt-25">
-                    <button className={btnp}>시리즈 이동하기</button> {/* 버튼링크 어디로 이동하는걸로 넣을지 */}
-                    <button className={btni}>상세정보</button>  {/* 버튼링크 어디로 이동하는걸로 넣을지 */}
+                    <Link to={``} className={btnp}>시리즈 이동하기</Link> {/* 버튼링크 어디로 이동하는걸로 넣을지 */}
+                    {/* <button className={btni}>상세정보</button>  버튼링크 어디로 이동하는걸로 넣을지 */}
                 </div>
             </div>
 
