@@ -7,4 +7,4 @@ function Play(){
     )
 }
 
-export default Paly
+export default Play ;

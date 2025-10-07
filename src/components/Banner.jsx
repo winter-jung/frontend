@@ -18,10 +18,10 @@ function Banner() {
                 navigation
                 pagination={{ clickable: true }}>
 
-                <SwiperSlide> <img className="w-full h-[600px]  rounded-[30px]" src="/banner_1.jpg" alt="배너" /></SwiperSlide>
-                <SwiperSlide><img className="w-full h-[600px]  rounded-[30px]" src="/banner_6.jpg" alt="배너" /></SwiperSlide>
-                <SwiperSlide><img className="w-full h-[600px]  rounded-[30px]" src="/banner_7.jpg" alt="배너" /></SwiperSlide>
-                <SwiperSlide><img className="w-full h-[600px]  rounded-[30px]" src="/banner3.jpg" alt="배너" /></SwiperSlide>
+                <SwiperSlide> <img className="w-full h-[600px]  rounded-[20px]" src="/banner_1.jpg" alt="배너" /></SwiperSlide>
+                <SwiperSlide><img className="w-full h-[600px]  rounded-[20px]" src="/banner_6.jpg" alt="배너" /></SwiperSlide>
+                <SwiperSlide><img className="w-full h-[600px]  rounded-[20px]" src="/banner_7.jpg" alt="배너" /></SwiperSlide>
+                <SwiperSlide><img className="w-full h-[600px]  rounded-[20px]" src="/banner3.jpg" alt="배너" /></SwiperSlide>
             </Swiper>
         </section>
 

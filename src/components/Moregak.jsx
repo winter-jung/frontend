@@ -13,6 +13,10 @@ function Moregak() {
     const [popAni, setPopAni] = useState([]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         async function loadNowPlaying() {
             try {
                 const po = await api.get(`popular?language=ko-KR`);
@@ -66,19 +70,19 @@ function Moregak() {
 
 
 function VideoHero() {
-    const btnp = `bg-white hover:bg-[#5A4FCF] text-black hover:text-white px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300 cursor-pointer`
+    const btnp = `bg-[#5A4FCF]/90 hover:bg-[#322996] text-white px-8 py-4 rounded-lg text-lg transition-colors duration-300 cursor-pointer`
     const btni = `hover:bg-black bg-[#E0E0E0] text-black hover:text-white px-8 py-4 rounded-lg text-lg font-bold transition-colors duration-300 cursor-pointer`
 
     return (
         <div className="relative">
-            <div className="text-[#F5F5F5] absolute z-10 top-60 w-full mx-auto max-w-[620px] h-[500px] left-20 ml-6 rounded-[20px] p-10 bg-black/20">
+            <div className="text-[#F5F5F5] absolute z-10 top-80 md:top-60 w-full max-w-full md:max-w-[620px] h-auto md:h-[400px] left-0 md:left-20 ml-0 md:ml-6 rounded-[20px] p-4 md:p-10 bg-black/20 mx-auto">
                 <div>
-                    <h2 className="text-6xl font-bold mb-10"><span className="text-[#D4F312]">몰밤</span> 전용관</h2>
-                    <div className="text-3xl mb-2">잠들기엔 너무 아까운 <span className="text-[#5A4FCF] font-bold">오늘 밤</span>,</div>
-                    <div className="text-3xl">몰밤 전용관에서 지금 바로 즐겨보세요.</div>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6 md:mb-10"><span>몰밤</span> 전용관</h2>
+                    <div className="text-lg md:text-2xl mb-2">잠들기엔 너무 아까운 <span className="text-[#D4F312] font-bold">오늘 밤</span>,</div>
+                    <div className="text-lg md:text-2xl">몰밤 전용관에서 지금 바로 즐겨보세요.</div>
                 </div>
-                <div className="flex gap-2 mt-25">
-                    <Link to={``} className={btnp}>시리즈 이동하기</Link> {/* 버튼링크 어디로 이동하는걸로 넣을지 */}
+                <div className="flex gap-2 mt-6 md:mt-10 flex-wrap">
+                    <Link to={``} className={btnp + ' transition-transform duration-300 hover:scale-110'}>시리즈 이동하기</Link>
                     {/* <button className={btni}>상세정보</button>  버튼링크 어디로 이동하는걸로 넣을지 */}
                 </div>
             </div>

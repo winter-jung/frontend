@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchIcon = () => {
   const navigate = useNavigate();
@@ -10,7 +12,7 @@ const SearchIcon = () => {
 
   return (
     <button onClick={handleClick} style={{ fontSize: '24px', background: 'none', border: 'none' }}>
-      <img src="/public/search.svg" alt="search" />
+      <FontAwesomeIcon icon={faSearch} />
     </button>
   );
 };

@@ -1,5 +1,9 @@
 import { Link } from "react-router";
 import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 function Navi() {
     // const back = useNavigate(-1);
@@ -24,14 +28,13 @@ function Navi() {
                     </div>
                 </div>
                 <div className='flex items-center gap-4'>
-                    <div className="flex gap-3 ">
-                        <Link to="/search"><img src="./search.svg" alt="search" /></Link>
-                        {/* <Link><img src="./noti.svg" alt="noti" /></Link> */}
-                        <Link to="/genres/p"><img src="./people.svg" alt="people" /></Link>
+                    <div className="flex gap-6 ">
+                        <Link to="/search"><FontAwesomeIcon icon={faMagnifyingGlass} className="text-3xl md:text-4xl lg:text-4xl"style={{color: "#ffffff",}} /></Link>
+                        <Link to="/genres/p"><FontAwesomeIcon icon={faCircleUser} className="text-3xl md:text-4xl lg:text-4xl" style={{color: "#ffffff",}} /></Link>
                     </div>
                     {/* 모바일 햄버거 버튼 */}
                     <button className="lg:hidden md:hidden cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-                        <img src="./hamburger.svg" alt="menu" className="w-10 h-10" />
+                        <FontAwesomeIcon icon={faBars} style={{color: "#ffffff", fontSize: "34px"}} />
                     </button>
                 </div>
             </div>

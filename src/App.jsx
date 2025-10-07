@@ -22,6 +22,10 @@ export default function App() {
 
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     async function loadNowPlaying() {
       try {
         const po = await api.get(`popular?language=ko-KR`);

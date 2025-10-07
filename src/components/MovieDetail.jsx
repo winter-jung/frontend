@@ -13,6 +13,10 @@ function MovieDetail() {
   const [movie, setMovie] = useState(null)
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     async function getMovieDetails() {
       const res = await api.get(`${id}?language=ko-KR`);
       setMovie(res.data)
@@ -24,7 +28,7 @@ function MovieDetail() {
     return <div className="min-h-screen bg-black text-white flex-item-center justify-center">Loading...</div>
   }
   // 버튼 및 텍스트 css
-  const btn = `bg-white hover:bg-[#D4F312] hover:text-black text-black px-8 py-4 rounded-lg text-lg font-bold transition duration-300 cursor-pointer hover:scale-110`
+  const btn = `bg-[#ffffff] hover:bg-[#FBFEE7] hover:text-black text-black px-6 py-3 rounded-lg  transition duration-300 cursor-pointer hover:scale-110`
   const text = `text-[#D4F312] font-bold text-lg mb-2`
   const text2 = `text-[#5A4FCF] font-bold text-lg mb-2`
 

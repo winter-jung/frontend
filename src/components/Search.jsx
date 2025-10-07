@@ -52,13 +52,13 @@ function Search() {
                             type="text"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            placeholder="TV 프로그램을 검색하세요..."
-                            className="flex-1 p-3 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:border-blue-500"
+                            placeholder="오늘은 무슨 시리즈로 몰밤할까요?"
+                            className="flex-1 p-2 rounded-[20px] bg-gray-800 text-white border border-gray-600 focus:outline-none focus:border-[#918adf] "
                         />
                         <button
                             type="submit"
                             disabled={loading}
-                            className="px-6 py-3 bg-blue-600 rounded hover:bg-blue-700 disabled:opacity-50"
+                            className="px-6 py-3 bg-[#5A4FCF] rounded-[20px] hover:bg-[#322996] disabled:opacity-50 trasition-transform duration-200 active:scale-96"
                         >
                             {loading ? '검색 중...' : '검색'}
                         </button>
