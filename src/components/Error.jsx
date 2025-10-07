@@ -10,4 +10,4 @@ const Error = function () {
     )
 }
 
-export default Error
+export default Error;

@@ -14,7 +14,7 @@ function Footer() {
                     <div>기프트카드</div>
                     <div>미디어 센터</div>
                 </div>
-                <div className="flex gap-20 mb-6">
+                <div className="flex gap-18 mb-6">
                     <div>투자 정보(IR)</div>
                     <div>입사  정보</div>
                     <div>이용 약관</div>
@@ -32,11 +32,13 @@ function Footer() {
                     <div>신고번호: 제2030-서울리라-1234호 </div>
                     <div>전화번호: 02-345-6789(수신자 부담)</div>
                 </div>
-                <div>대표: 망고살구</div>
-                <div>이메일 주소: mango@morebomb.com</div>
-                <div>주소: 대한민국 서울특별시 종로구 망고로 23</div>
-                <div>사업자 등록번호: 123-45-67891</div>
-                <div>공정거래위원회 웹사이트</div>
+                <div className="flex flex-col gap-y-2 mt-6 mb-2">
+                    <div>대표: 망고살구</div>
+                    <div>이메일 주소: mango@morebomb.com</div>
+                    <div>주소: 대한민국 서울특별시 종로구 망고로 23</div>
+                    <div>사업자 등록번호: 123-45-67891</div>
+                    <div>공정거래위원회 웹사이트</div>
+                </div>
             </div>
         </div>
 
