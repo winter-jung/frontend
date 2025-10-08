@@ -3,13 +3,15 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 
 import App from './App.jsx'
-import RootLayout from './components/RootLayout.jsx'
-import Error from './components/Error.jsx'
-import GenrePage from './components/GenrePage.jsx'
+import RootLayout from './pages/RootLayout.jsx'
+import Error from './pages/Error.jsx'
+import GenrePage from './pages/GenrePage.jsx'
 import './index.css'
-import MovieDetail from './components/MovieDetail.jsx'
-import Search from "./components/Search.jsx"
-import Moregak from './components/Moregak.jsx'
+import MovieDetail from './pages/MovieDetail.jsx'
+import Search from "./pages/Search.jsx"
+import Moregak from './pages/Moregak.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
+import TrendingPage from './pages/TrendingPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,15 +30,22 @@ const router = createBrowserRouter([
       {
         path: 'tv/:id',
         element: <MovieDetail />,
-      }
-        ,
-        {
-          path: 'search',
-          element: <Search />,
-        },
-          {
+      },
+      {
+        path: 'search',
+        element: <Search />,
+      },
+      {
         path: '/moregak',
         element: < Moregak />,
+      },
+      {
+        path: 'profile/:type',
+        element: <ProfilePage />,
+      },
+      {
+        path: 'trending',
+        element: <TrendingPage />,
       },
 
     ]

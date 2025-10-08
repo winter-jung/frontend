@@ -52,19 +52,19 @@ export default function ChatBot() {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-16 right-16 w-16 h-16 bg-[#dcf312] text-black rounded-full shadow-lg z-50 flex items-center justify-center hover:bg-[#9bab0b] transition-colors duration-500 cursor-pointer"
+        className="fixed bottom-16 right-16 w-16 h-16 bg-[#dcf312] text-[#1e1d25] rounded-full shadow-lg z-50 flex items-center justify-center hover:bg-[#9bab0b] transition-colors duration-500 cursor-pointer"
       >
         <FontAwesomeIcon icon={faHeadset} size="lg" />
       </button>
 
       {isOpen && (
         <div className="fixed bottom-34 right-16 w-80 h-96 bg-white rounded-lg shadow-xl z-50 flex flex-col">
-          <div className="bg-yellow-500 text-black p-4 rounded-t-lg">
+          <div className="bg-yellow-500 text-[#1e1d25] p-4 rounded-t-lg">
             <div className="flex justify-between items-center">
               <h3 className="font-bold">몰밤 챗봇</h3>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-black hover:text-gray-600"
+                className="text-[#1e1d25] hover:text-gray-600"
               >
                 ✕
               </button>
@@ -75,7 +75,7 @@ export default function ChatBot() {
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[70%] px-3 py-2 rounded-lg ${message.sender === 'user'
-                    ? 'bg-yellow-500 text-black'
+                    ? 'bg-yellow-500 text-[#1e1d25]'
                     : 'bg-gray-100 text-gray-800'
                   }`}>
                   <div className="text-sm leading-relaxed">
@@ -114,7 +114,7 @@ export default function ChatBot() {
               <button
                 onClick={sendMessage}
                 disabled={!inputMessage.trim() || isLoading}
-                className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 font-medium">전송
+                className="bg-yellow-500 text-[#1e1d25] px-4 py-2 rounded hover:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 font-medium">전송
               </button>
             </div>
           </div>
