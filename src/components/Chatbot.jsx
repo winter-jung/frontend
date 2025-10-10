@@ -109,7 +109,7 @@ export default function ChatBot() {
                 onKeyPress={handleKeyPress}
                 placeholder="메시지를 입력하세요..."
                 disabled={isLoading}
-                className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent disabled:bg-gray-100"
+                className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent disabled:bg-gray-100 text-gray-800"
               />
               <button
                 onClick={sendMessage}
