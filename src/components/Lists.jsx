@@ -1,8 +1,6 @@
 import Card from "./Card";
 
 const Lists = ({ items = [], title = "콘텐츠" }) => {
-  console.log(items);
-
   return (
     <div className="container mx-auto py-8">
       <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">{title}</h2>

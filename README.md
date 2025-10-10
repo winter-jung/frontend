@@ -248,7 +248,300 @@ npm run lint
 npm run preview
 ```
 
-## 🌟 향후 개선 계획
+## 🔧 Fix
+
+### Vercel 배포 Error 컴포넌트 렌더링 문제 해결 (2025.10.10)
+
+**문제점**: Vercel에서 Error 컴포넌트가 렌더링되지 않는 문제 발생
+
+**해결 방법**:
+
+1. **라우터 변경**: `createBrowserRouter` → `createHashRouter`
+   ```jsx
+   // Before
+   import { createBrowserRouter, RouterProvider } from 'react-router'
+   const router = createBrowserRouter([...])
+
+   // After
+   import { createHashRouter, RouterProvider } from 'react-router'
+   const router = createHashRouter([...])
+   ```
+   - Hash 라우팅을 사용하여 정적 호스팅에서 클라이언트 사이드 라우팅 안정성 확보
+
+2. **vercel.json 설정 추가**:
+   ```json
+   {
+     "rewrites": [
+       {
+         "source": "/(.*)",
+         "destination": "/index.html"
+       }
+     ]
+   }
+   ```
+   - 모든 요청을 index.html로 리다이렉트하여 SPA 라우팅 지원
+
+3. **Error 페이지 라우트 개선**:
+   ```jsx
+   {
+     path: 'error',
+     element: <Error />,
+   },
+   {
+     path: '*',
+     element: <Error />,
+   }
+   ```
+   - 명시적인 `/error` 경로 추가 및 catch-all 라우트 유지
+
+**결과**: 존재하지 않는 페이지 접근 시 404 Error 페이지가 정상적으로 렌더링됨
+
+---
+
+### URL 라우팅 및 네비게이션 개선 (2025.10.10)
+
+**문제점**:
+1. HashRouter 사용으로 인한 URL에 `#` 포함 문제
+2. Profile 페이지에서 Card 클릭 시 Navi 리렌더링 발생
+3. Profile에서 Card 클릭 후 디테일 페이지에서 일반 네비게이션 표시
+
+**해결 방법**:
+
+1. **라우터 재변경**: `createHashRouter` → `createBrowserRouter`
+   ```jsx
+   // 깔끔한 URL을 위해 BrowserRouter로 복원
+   import { createBrowserRouter, RouterProvider } from 'react-router'
+   const router = createBrowserRouter([...])
+   ```
+   - `vercel.json` 설정으로 배포 호환성 유지
+   - URL: `/#/profile/all` → `/profile/all`
+
+2. **Navi 컴포넌트 리렌더링 최적화**:
+   ```jsx
+   // Before: state 기반 Profile 메뉴 관리
+   const [showProfile, setShowProfile] = useState(false);
+
+   // After: 경로 기반 Profile 메뉴 관리
+   const isProfilePage = location.pathname.startsWith('/profile');
+   const showProfileNav = isProfilePage || fromProfile;
+   ```
+   - useState 제거하여 불필요한 리렌더링 방지
+   - 경로 기반으로 Profile 네비게이션 표시 여부 결정
+
+3. **Profile 네비게이션 컨텍스트 유지**:
+   ```jsx
+   // Card 컴포넌트에서 Profile 컨텍스트 전달
+   const isFromProfile = location.pathname.startsWith('/profile');
+   if (isFromProfile) {
+     navigate(`/tv/${content.id}?from=profile&type=${type}`);
+   }
+
+   // Navi에서 query parameter 확인하여 Profile 네비 표시
+   const fromProfile = searchParams.get('from') === 'profile';
+   const showProfileNav = isProfilePage || fromProfile;
+   ```
+   - Profile 페이지에서 Card 클릭 시 query parameter로 컨텍스트 전달
+   - 디테일 페이지에서도 Profile 네비게이션 유지
+
+4. **비슷한 콘텐츠 API 오류 처리**:
+   ```jsx
+   // getSimilar 함수에 try-catch 추가
+   const getSimilar = async (type, id) => {
+     try {
+       const response = await axios.get(`/similar`);
+       return response.data.results.filter(item => item.poster_path);
+     } catch (error) {
+       console.warn(`비슷한 ${type} 콘텐츠를 찾을 수 없습니다.`);
+       return []; // 404 오류 시 빈 배열 반환
+     }
+   };
+   ```
+   - 404 오류 발생 시 앱 크래시 방지
+   - 사용자에게는 조용히 처리하여 UX 개선
+
+**결과**:
+- 깔끔한 URL 구조 (`/profile/all`)
+- Profile 페이지 내 원활한 네비게이션
+- Profile 컨텍스트가 유지되는 상세 페이지
+- 안정적인 API 오류 처리
+
+---
+
+### 트레일러 기반 콘텐츠 우선 정렬 시스템 구현 (2025.10.10)
+
+**문제점**:
+1. 사용자가 예고편이 있는 콘텐츠를 쉽게 찾기 어려움
+2. 콘텐츠 목록에서 트레일러 존재 여부를 알 수 없음
+3. 시즌별 예고편 재생 기능 부족
+
+**해결 방법**:
+
+1. **트레일러 존재 여부 확인 API**:
+   ```jsx
+   // 개별 콘텐츠의 트레일러 확인
+   const checkTrailerExists = async (contentId) => {
+     try {
+       const response = await axios.get(`/tv/${contentId}/videos`);
+       const hasTrailer = response.data.results.some(video =>
+         video.type === "Trailer" || video.type === "Teaser"
+       );
+       return hasTrailer;
+     } catch (error) {
+       return false;
+     }
+   };
+   ```
+
+2. **트레일러 우선 정렬 시스템**:
+   ```jsx
+   // 성능 최적화: 상위 10개만 트레일러 확인
+   const sortByTrailerAvailability = async (items, maxCheck = 10) => {
+     const checkedItems = await Promise.all(
+       items.slice(0, maxCheck).map(async (item) => ({
+         ...item,
+         hasTrailer: await checkTrailerExists(item.id)
+       }))
+     );
+
+     // 트레일러 우선 → 평점 순 정렬
+     return checkedItems.sort((a, b) => {
+       if (a.hasTrailer && !b.hasTrailer) return -1;
+       return b.vote_average - a.vote_average;
+     });
+   };
+   ```
+
+3. **시즌별 예고편 재생 기능**:
+   ```jsx
+   // 시즌별 비디오 API 연결
+   const videoRes = await api.get(`${id}/season/${selectedSeason}/videos`);
+
+   // 시즌 선택 UI 추가
+   <select value={selectedSeason} onChange={(e) => setSelectedSeason(e.target.value)}>
+     {movie.seasons.map(season => (
+       <option value={season.season_number}>{season.name}</option>
+     ))}
+   </select>
+   ```
+
+4. **시각적 트레일러 표시**:
+   ```jsx
+   // Card 컴포넌트에 트레일러 배지 추가
+   {content.hasTrailer && (
+     <div className="absolute top-2 right-2 bg-[#D4F312] text-black text-xs px-2 py-1 rounded-full">
+       🎬 예고편
+     </div>
+   )}
+   ```
+
+5. **주요 API 함수 업데이트**:
+   - `getTrending()`: 트렌딩 콘텐츠 트레일러 우선 정렬
+   - `getPopular()`: 인기 콘텐츠 트레일러 우선 정렬
+   - `getOnTheAir()`: 현재 방영 콘텐츠 트레일러 우선 정렬
+
+**결과**:
+- 트레일러가 있는 콘텐츠가 목록 상단에 우선 표시
+- 시각적 배지로 트레일러 존재 여부 즉시 확인 가능
+- 시즌별 개별 예고편 재생 기능 제공
+- 성능 최적화로 빠른 로딩 속도 유지 (상위 10개만 확인)
+- 병렬 처리로 API 호출 최적화
+
+---
+
+### 예고편 재생 및 비디오 타입 인식 시스템 구현 (2025.10.10)
+
+**문제점**:
+1. 시즌별 비디오가 없을 때 대안 영상 부족
+2. 예고편 외 다른 영상 타입(티저, 클립 등) 구분 필요
+3. 사용자에게 적절한 영상 타입 정보 제공 부족
+
+**해결 방법**:
+
+1. **시즌/시리즈 비디오 폴백 시스템**:
+   ```jsx
+   // 1차: 시즌별 비디오 확인
+   try {
+     const seasonVideoRes = await api.get(`${id}/season/${selectedSeason}/videos?language=ko-KR`);
+     videos = seasonVideoRes.data.results;
+     console.log('Season videos:', videos);
+   } catch (seasonError) {
+     console.warn('Season videos not found, trying series videos...');
+   }
+
+   // 2차: 시즌별 비디오가 없으면 TV 시리즈 전체 비디오 확인
+   if (videos.length === 0) {
+     try {
+       const seriesVideoRes = await api.get(`${id}/videos?language=ko-KR`);
+       videos = seriesVideoRes.data.results;
+       videoSource = "series";
+       console.log('Series videos:', videos);
+     } catch (seriesError) {
+       console.warn('Series videos not found either');
+     }
+   }
+   ```
+
+2. **비디오 타입 우선순위 시스템**:
+   ```jsx
+   // 비디오 타입 우선순위: Trailer > Teaser > Clip > Behind the Scenes
+   const videoTypePriority = ["Trailer", "Teaser", "Clip", "Behind the Scenes"];
+
+   let bestVideo = null;
+   for (const type of videoTypePriority) {
+     bestVideo = videos.find(video => video.type === type);
+     if (bestVideo) break;
+   }
+   ```
+
+3. **비디오 타입별 UI 구분**:
+   ```jsx
+   // 버튼 텍스트 결정 함수
+   const getButtonText = () => {
+     if (!videoId) return "예고편 없음";
+
+     const videoType = getCurrentVideoType();
+     switch(videoType) {
+       case "Trailer": return "🎬 예고편 보기";
+       case "Teaser": return "🎥 티저 보기";
+       case "Clip": return "📹 클립 보기";
+       case "Behind the Scenes": return "🎭 메이킹 보기";
+       default: return "▶️ 영상 보기";
+     }
+   };
+   ```
+
+4. **YouTube 연동 및 에러 처리**:
+   ```jsx
+   const handleWatchClick = () => {
+     if (videoId) {
+       window.open(`https://www.youtube.com/watch?v=${videoId}`, "_blank");
+     } else {
+       const seasonText = movie?.seasons ? `시즌 ${selectedSeason}` : "이 콘텐츠";
+       alert(`죄송합니다. ${seasonText}의 예고편이 현재 제공되지 않습니다.`);
+     }
+   };
+   ```
+
+5. **시즌 선택 인터페이스 개선**:
+   ```jsx
+   // 시즌 0 제외하고 실제 시즌만 표시
+   {movie.seasons
+     .filter((season) => season.season_number > 0)
+     .map((season) => (
+       <option key={season.id} value={season.season_number}>
+         {season.name} ({season.episode_count}부작)
+       </option>
+     ))}
+   ```
+
+**결과**:
+- 시즌별 비디오 없을 시 시리즈 전체 비디오로 폴백
+- 예고편, 티저, 클립, 메이킹 영상까지 다양한 비디오 타입 지원
+- 사용자에게 정확한 영상 타입 정보 제공 (이모지 포함)
+- YouTube 새 창 재생으로 끊김 없는 사용자 경험
+- 시즌 0(스페셜) 제외한 실제 시즌만 선택 가능
+
+---## 🌟 향후 개선 계획
 
 - [ ] 사용자 인증 및 개인 프로필 관리
 - [ ] 시청 기록 및 개인 시청 목록

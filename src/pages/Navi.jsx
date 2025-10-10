@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate, useLocation } from "react-router";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -7,8 +7,25 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Navi() {
   const [isOpen, setIsOpen] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Profile 페이지인지 확인
+  const isProfilePage = location.pathname.startsWith('/profile');
+
+  // URL query parameter로 프로필에서 온 경우 확인
+  const searchParams = new URLSearchParams(location.search);
+  const fromProfile = searchParams.get('from') === 'profile';
+  const profileType = searchParams.get('type');
+
+  // 프로필 네비게이션을 표시할 조건
+  const showProfileNav = isProfilePage || fromProfile;
+
+  const handleProfileClick = () => {
+    if (!isProfilePage) {
+      navigate('/profile/all');
+    }
+  };
 
   return (
     <div className="fixed top-0 left-0 w-full py-8 bg-[#1A1442]/60 z-50 backdrop-blur-lg ">
@@ -19,18 +36,13 @@ function Navi() {
               <img src="./morebomb_logo.svg" alt="logo" />
             </h1>
           </Link>
-          <div className="profile hidden lg:flex md:flex md:text-lg md:gap-3 lg:gap-6 xl:gap-10 p-4 text-white lg:text-xl justify-center">{showProfile ? <Profile onMenuClick={() => setShowProfile(false)} /> : <Gnb />}</div>
+          <div className="profile hidden lg:flex md:flex md:text-lg md:gap-3 lg:gap-6 xl:gap-10 p-4 text-white lg:text-xl justify-center">{showProfileNav ? <Profile profileType={profileType} /> : <Gnb />}</div>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex gap-6 ">
             <NavLink to="/search">{({ isActive }) => <FontAwesomeIcon icon={faMagnifyingGlass} className="text-3xl md:text-4xl lg:text-4xl" style={{ color: isActive ? "#dcf312" : "#ffffff" }} />}</NavLink>
-            <button onClick={() => {
-              if (!showProfile) {
-                navigate('/profile/all');
-              }
-              setShowProfile(!showProfile);
-            }} className="cursor-pointer">
-              <FontAwesomeIcon icon={faUser} className="text-3xl md:text-4xl lg:text-4xl" style={{ color: showProfile ? "#dcf312" : "#ffffff" }} />
+            <button onClick={handleProfileClick} className="cursor-pointer">
+              <FontAwesomeIcon icon={faUser} className="text-3xl md:text-4xl lg:text-4xl" style={{ color: showProfileNav ? "#dcf312" : "#ffffff" }} />
             </button>
           </div>
           {/* 모바일 햄버거 버튼 */}
@@ -99,16 +111,34 @@ function Gnb() {
   );
 }
 
-function Profile({ onMenuClick }) {
+function Profile({ profileType }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleMenuClick = () => {
+    navigate('/');
+  };
+
+  // 현재 활성 타입 결정 (URL 또는 props에서)
+  const currentType = location.pathname.startsWith('/profile')
+    ? location.pathname.split('/')[2]
+    : profileType || 'all';
+
   return (
     <>
-      <NavLink to="/" onClick={onMenuClick} className="cursor-pointer">
+      <button onClick={handleMenuClick} className="cursor-pointer text-white hover:text-[#dcf312] transition-colors">
         메뉴
-      </NavLink>
-      <NavLink to={`/profile/all`} className={({ isActive }) => (isActive ? "text-[#dcf312]" : "")}>
+      </button>
+      <NavLink
+        to={`/profile/all`}
+        className={({ isActive }) => (isActive || currentType === 'all' ? "text-[#dcf312]" : "")}
+      >
         전체
       </NavLink>
-      <NavLink to="/profile/kids" className={({ isActive }) => (isActive ? "text-[#dcf312]" : "")}>
+      <NavLink
+        to="/profile/kids"
+        className={({ isActive }) => (isActive || currentType === 'kids' ? "text-[#dcf312]" : "")}
+      >
         키즈
       </NavLink>
     </>

@@ -27,9 +27,12 @@ function ProfilePage() {
           response = await getByAdultFilter(false, null);
         }
 
-        setContent(response.data.results);
+        // 포스터가 있는 콘텐츠만 필터링
+        const filteredContent = response.data.results.filter(item => item.poster_path);
+        setContent(filteredContent);
       } catch (err) {
         console.error("콘텐츠 로딩 실패", err);
+        setContent([]);
       } finally {
         setLoading(false);
       }
