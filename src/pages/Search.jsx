@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { searchTV } from '../api/axios';
 import Card from '../components/Card';
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router";
+
+
 
 
 function Search() {
@@ -30,6 +33,11 @@ function Search() {
         e.preventDefault();
         performSearch(query);
     };
+
+        useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
 
     return (
         <div className="min-h-screen bg-[#1e1d25] text-white pt-32 px-8">
@@ -75,6 +83,7 @@ function Search() {
         </div>
     );
 }
+
 
 export default Search;
 

@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 
 function MovieDetail() {
   const { id } = useParams();
-  const [movie, setMovie] = useState(null)
+  const [movie, setMovie] = useState(null);
+  const [videoId, setVideoId] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -16,12 +17,34 @@ function MovieDetail() {
 
   useEffect(() => {
     async function getMovieDetails() {
-      const res = await api.get(`${id}?language=ko-KR`);
-      setMovie(res.data)
-      console.log(res.data);
+      try {
+        const [movieRes, videoRes] = await Promise.all([
+          api.get(`${id}?language=ko-KR`),
+          api.get(`${id}/videos?language=ko-KR`)
+        ]);
+        setMovie(movieRes.data);
+        // 첫 번째 공식 예고편이나 티저를 찾습니다
+        const trailer = videoRes.data.results.find(
+          video => video.type === "Trailer" || video.type === "Teaser"
+        );
+        if (trailer) {
+          setVideoId(trailer.key);
+        }
+      } catch (error) {
+        console.error('Error fetching movie details:', error);
+      }
     }
-    getMovieDetails()
-  }, [id])/* 의존성배열의 값이 바꿀때  실행 */
+    getMovieDetails();
+  }, [id]);
+
+  const handleWatchClick = () => {
+    if (videoId) {
+      window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+    } else {
+      alert('죄송합니다. 현재 이용 가능한 영상이 없습니다.');
+    }
+  };
+
   if (!movie) {
     return <div className="min-h-screen bg-[#1e1d25] text-white flex-item-center justify-center">Loading...</div>
   }
@@ -43,7 +66,12 @@ function MovieDetail() {
 
           <div className="md:w-2/3 mx-10">
             <h1 className="text-4xl font-bold my-10">{movie.name}</h1>
-            <button className={`${btn} mb-10`}>시청하기</button>
+            <button
+              className={`${btn} mb-10`}
+              onClick={handleWatchClick}
+            >
+              예고편 보기
+            </button>
             <p className="text-lg mb-4">{movie.overview}</p>
             <div className="grid grid-cols-2 gap-4 mt-15">
               <div>

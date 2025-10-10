@@ -8,6 +8,10 @@ function TrendingPage() {
   const [content, setContent] = useState([]);
   const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     async function loadTrending() {
       try {

@@ -13,6 +13,10 @@ function GenrePage() {
     const [genreName, setGenreName] = useState("");
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         async function loadGenreMovies() {
             try {
                 setLoading(true);
@@ -26,6 +30,8 @@ function GenrePage() {
                 setLoading(false);
             }
         }
+
+
 
         if (genreId) {
             loadGenreMovies();

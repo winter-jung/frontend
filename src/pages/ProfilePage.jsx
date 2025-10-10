@@ -10,6 +10,10 @@ function ProfilePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     async function loadContent() {
       try {
         setLoading(true);
