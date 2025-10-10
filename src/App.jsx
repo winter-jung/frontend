@@ -7,11 +7,11 @@ import {
   getTopRated
 } from "./api/axios";
 import { useEffect, useState, useRef } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import Section from "./components/Section";
 import Chatbot from "./components/Chatbot";
+import StarBackground from './components/StarBackground';
 
 export default function App() {
   const [popular, setPopular] = useState([]);
@@ -68,20 +68,26 @@ export default function App() {
       </main>
     );
   }
+
   return (
-    <div className="text-[#dfdfd9]">
-      <VideoHero />
-      <Section title="오늘의 몰밤 TOP 10" items={popular} m_v={2} p_v={5} />
-      <Section title="지금 방영 중인 콘텐츠" items={nowPlaying} m_v={3} p_v={6} />
-      <Section title="오늘 밤 몰아보기 추천" items={upComing} m_v={3} p_v={6} />
-      <Section title="추천 인기 시리즈물" items={trend} m_v={3} p_v={6} />
-      <Section title="급상승 콘텐츠" items={airTV} m_v={3} p_v={6} />
-      <Section title="인기 애니 시리즈" items={popAni} m_v={3} p_v={6} />
-      <Section title="추천 인기 K드라마" items={popKD} m_v={3} p_v={6} />
-      <Section title="해외 코미디 가족 드라마" items={eDrama} m_v={3} p_v={6} />
-      <Section title="인기 예능" items={reality} m_v={3} p_v={6} />
-      <Chatbot />
-    </div>
+    <>
+      <StarBackground />
+      <div className="relative text-[#dfdfd9]">
+        <VideoHero />
+        <div className="relative z-10">
+          <Section title ="오늘의 몰밤 TOP 10" items={popular} m_v={2} p_v={5} />
+          <Section title="지금 방영 중인 콘텐츠" items={nowPlaying} m_v={3} p_v={6} />
+          <Section title="오늘 밤 몰아보기 추천" items={upComing} m_v={3} p_v={6} />
+          <Section title="추천 인기 시리즈물" items={trend} m_v={3} p_v={6} />
+          <Section title="급상승 콘텐츠" items={airTV} m_v={3} p_v={6} />
+          <Section title="인기 애니 시리즈" items={popAni} m_v={3} p_v={6} />
+          <Section title="추천 인기 K드라마" items={popKD} m_v={3} p_v={6} />
+          <Section title="해외 코미디 가족 드라마" items={eDrama} m_v={3} p_v={6} />
+          <Section title="인기 예능" items={reality} m_v={3} p_v={6} />
+        </div>
+        <Chatbot />
+      </div>
+    </>
   );
 }
 
@@ -108,3 +114,5 @@ function VideoHero() {
     </section>
   );
 }
+
+

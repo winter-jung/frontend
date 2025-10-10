@@ -5,9 +5,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import Card from "./Card";
+
 export default function Section({ title, items, p_v, m_v }) {
   return (
-    <section className="bg-[#1e1d25] py-10 px-4">
+
+    <section className="py-10 px-4">
       <div className="container mx-auto">
         <h2 className="text-[32px] font-bold mb-8">{title}</h2>
 

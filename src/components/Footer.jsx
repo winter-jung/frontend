@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router";
 
 function Footer() {
     return (
-        <div className="w-full text-white p-10 "
+        <div className="w-full text-white p-10 relative z-10"
             style={{ background: 'linear-gradient(to bottom, #0d0727 0%, rgba(13,7,39,0.6) 87.5%, rgba(13,7,39,0.4) 100%)' }}>
             <div className="container mx-auto">
                 <Link to="/">

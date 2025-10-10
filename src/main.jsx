@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         path: 'trending',
         element: <TrendingPage />,
       },
-      // 아래 추가!
+
       {
         path: '*',
         element: <Error />,
