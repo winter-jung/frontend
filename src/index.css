@@ -1,1 +1,9 @@
+/* Load Pretendard Variable (variable font) from jsDelivr CDN */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+
 @import "tailwindcss"; :root { --swiper-theme-color:#d4f312 !important; }
+
+/* Set Pretendard Variable as the default font for the app */
+html, body {
+   font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans KR', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
