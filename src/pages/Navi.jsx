@@ -66,7 +66,7 @@ function Navi() {
           <NavLink to="/genres/16" className={({ isActive }) => (isActive ? "text-[#dcf312]" : "")}>
             애니
           </NavLink>
-          <NavLink to="/genres/18" className={({ isActive }) => (isActive ? "text-[#dcf312]" : "")}>
+          <NavLink to="/genres/10764" className={({ isActive }) => (isActive ? "text-[#dcf312]" : "")}>
             예능
           </NavLink>
           <NavLink to="/moregak" className={({ isActive }) => (isActive ? "text-[#dcf312]" : "")}>
